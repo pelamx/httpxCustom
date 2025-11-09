@@ -11,7 +11,7 @@ import (
 	"github.com/logrusorgru/aurora"
 	"github.com/projectdiscovery/gologger"
 	"github.com/pelamx/httpxCustom/internal/pdcp"
-	"github.com/projectdiscovery/httpx/runner"
+	"github.com/pelamx/httpxCustom/runner"
 	pdcpauth "github.com/projectdiscovery/utils/auth/pdcp"
 	_ "github.com/projectdiscovery/utils/pprof"
 )

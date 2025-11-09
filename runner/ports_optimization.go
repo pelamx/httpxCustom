@@ -4,7 +4,7 @@ import (
 	"net"
 	"strconv"
 
-	"github.com/projectdiscovery/httpx/common/httpx"
+	"github.com/pelamx/httpxCustom/common/httpx"
 	sliceutil "github.com/projectdiscovery/utils/slice"
 )
 

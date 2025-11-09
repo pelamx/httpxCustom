@@ -17,7 +17,7 @@ import (
 	mapsutil "github.com/projectdiscovery/utils/maps"
 	wappalyzer "github.com/projectdiscovery/wappalyzergo"
 
-	"github.com/projectdiscovery/httpx/common/httpx"
+	"github.com/pelamx/httpxCustom/common/httpx"
 )
 
 type AsnResponse struct {

@@ -11,7 +11,7 @@ import (
 	"github.com/projectdiscovery/goflags"
 	"github.com/projectdiscovery/gologger"
 	"github.com/projectdiscovery/gologger/levels"
-	"github.com/projectdiscovery/httpx/runner"
+	"github.com/pelamx/httpxCustom/runner"
 )
 
 func main() {

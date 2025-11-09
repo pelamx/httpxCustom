@@ -8,7 +8,7 @@ import (
 	"github.com/pkg/errors"
 	sliceutil "github.com/projectdiscovery/utils/slice"
 
-	"github.com/projectdiscovery/httpx/common/httpx"
+	"github.com/pelamx/httpxCustom/common/httpx"
 )
 
 //nolint:gochecknoinits // this flag var needs a small refactor to avoid the use of the init function

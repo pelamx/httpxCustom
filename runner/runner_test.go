@@ -8,7 +8,7 @@ import (
 	"time"
 
 	_ "github.com/projectdiscovery/fdmax/autofdmax"
-	"github.com/projectdiscovery/httpx/common/httpx"
+	"github.com/pelamx/httpxCustom/common/httpx"
 	"github.com/projectdiscovery/mapcidr/asn"
 	stringsutil "github.com/projectdiscovery/utils/strings"
 	"github.com/stretchr/testify/require"
