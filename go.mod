@@ -1,4 +1,4 @@
-module github.com/projectdiscovery/httpx
+module github.com/pelamx/httpxCustom
 
 go 1.24.0
 
