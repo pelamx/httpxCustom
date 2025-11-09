@@ -192,6 +192,7 @@ type Options struct {
 	Methods                   string
 	RequestURI                string
 	RequestURIs               string
+	Endpoint                  string
 	requestURIs               []string
 	OutputMatchStatusCode     string
 	OutputMatchContentLength  string
@@ -425,7 +426,7 @@ func ParseOptions() *Options {
 
 	flagSet.CreateGroup("extractor", "Extractor",
 		flagSet.StringSliceVarP(&options.OutputExtractRegexs, "extract-regex", "er", nil, "display response content with matched regex", goflags.StringSliceOptions),
-		flagSet.StringSliceVarP(&options.OutputExtractPresets, "extract-preset", "ep", nil, fmt.Sprintf("display response content matched by a pre-defined regex (%s)", strings.Join(maps.Keys(customextract.ExtractPresets), ",")), goflags.StringSliceOptions),
+		flagSet.StringSliceVarP(&options.OutputExtractPresets, "extract-preset", "epr", nil, fmt.Sprintf("display response content matched by a pre-defined regex (%s)", strings.Join(maps.Keys(customextract.ExtractPresets), ",")), goflags.StringSliceOptions),
 	)
 
 	flagSet.CreateGroup("filters", "Filters",
@@ -456,6 +457,7 @@ func ParseOptions() *Options {
 		flagSet.BoolVarP(&options.ProbeAllIPS, "probe-all-ips", "pa", false, "probe all the ips associated with same host"),
 		flagSet.VarP(&options.CustomPorts, "ports", "p", "ports to probe (nmap syntax: eg http:1,2-10,11,https:80)"),
 		flagSet.StringVar(&options.RequestURIs, "path", "", "path or list of paths to probe (comma-separated, file)"),
+		flagSet.StringVarP(&options.Endpoint, "endpoint", "ep", "", "add endpoint to each URL. (e.g. /endpoint)"),
 		flagSet.BoolVar(&options.TLSProbe, "tls-probe", false, "send http probes on the extracted TLS domains (dns_name)"),
 		flagSet.BoolVar(&options.CSPProbe, "csp-probe", false, "send http probes on the extracted CSP domains"),
 		flagSet.BoolVar(&options.TLSGrab, "tls-grab", false, "perform TLS(SSL) data grabbing"),

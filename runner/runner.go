@@ -1298,6 +1298,13 @@ func (r *Runner) RunEnumeration() {
 			}
 		}
 
+		if r.options.Endpoint != "" {
+			scanopts := r.scanopts.Clone()
+			scanopts.RequestURI = path.Join(scanopts.RequestURI, r.options.Endpoint)
+			r.process(k, wg, r.hp, protocol, scanopts, output)
+			return nil
+		}
+
 		if len(r.options.requestURIs) > 0 {
 			for _, p := range r.options.requestURIs {
 				scanopts := r.scanopts.Clone()
