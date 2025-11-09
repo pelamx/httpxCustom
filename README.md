@@ -1,74 +1,29 @@
+Just an extra flag, yet, for direct /enpoint recon which is -ep which is so handy and existing -ep flag changed as -epc...
+
+# Usage ScreenShot...
+
 <h1 align="center">
-  <img src="static/httpx-logo.png" alt="httpx" width="200px">
+  <img src="https://github.com/pelamx/httpxCustom/blob/dev/usage.png" alt="httpxc" width="700px">
   <br>
 </h1>
 
-
-
-<p align="center">
-<a href="https://opensource.org/licenses/MIT"><img src="https://img.shields.io/badge/license-MIT-_red.svg"></a>
-<a href="https://goreportcard.com/badge/github.com/projectdiscovery/httpx"><img src="https://goreportcard.com/badge/github.com/projectdiscovery/httpx"></a>
-<a href="https://github.com/projectdiscovery/httpx/releases"><img src="https://img.shields.io/github/release/projectdiscovery/httpx"></a>
-<a href="https://hub.docker.com/r/projectdiscovery/httpx"><img src="https://img.shields.io/docker/pulls/projectdiscovery/httpx.svg"></a>
-<a href="https://twitter.com/pdiscoveryio"><img src="https://img.shields.io/twitter/follow/pdiscoveryio.svg?logo=twitter"></a>
-<a href="https://discord.gg/projectdiscovery"><img src="https://img.shields.io/discord/695645237418131507.svg?logo=discord"></a>
-</p>
-
-<p align="center">
-  <a href="#features">Features</a> •
-  <a href="#installation-instructions">Installation</a> •
-  <a href="#usage">Usage</a> •
-  <a href="https://docs.projectdiscovery.io/tools/httpx/">Documentation</a> •
-  <a href="#notes">Notes</a> •
-  <a href="https://discord.gg/projectdiscovery">Join Discord</a>
-</p>
-
-
-`httpx` is a fast and multi-purpose HTTP toolkit that allows running multiple probes using the [retryablehttp](https://github.com/projectdiscovery/retryablehttp-go) library. It is designed to maintain result reliability with an increased number of threads.
-
-# Features
-
-<h1 align="center">
-  <img src="https://user-images.githubusercontent.com/8293321/135731750-4c1d38b1-bd2a-40f9-88e9-3c4b9f6da378.png" alt="httpx" width="700px">
-  <br>
-</h1>
-
- - Simple and modular code base making it easy to contribute.
- - Fast And fully configurable flags to probe multiple elements.
- - Supports multiple HTTP based probings.
- - Smart auto fallback from https to http as default. 
- - Supports hosts, URLs and CIDR as input.
- - Handles edge cases doing retries, backoffs etc for handling WAFs.
-
-### Supported probes
-
-| Probes          | Default check | Probes         | Default check |
-|-----------------|---------------|----------------|---------------|
-| URL             | true          | IP             | true          |
-| Title           | true          | CNAME          | true          |
-| Status Code     | true          | Raw HTTP       | false         |
-| Content Length  | true          | HTTP2          | false         |
-| TLS Certificate | true          | HTTP Pipeline  | false         |
-| CSP Header      | true          | Virtual host   | false         |
-| Line Count      | true          | Word Count     | true          |
-| Location Header | true          | CDN            | false         |
-| Web Server      | true          | Paths          | false         |
-| Web Socket      | true          | Ports          | false         |
-| Response Time   | true          | Request Method | true          |
-| Favicon Hash    | false         | Probe  Status  | false         |
-| Body Hash       | true          | Header  Hash   | true          |
-| Redirect chain  | false         | URL Scheme     | true          |
-| JARM Hash       | false         | ASN            | false         |
 
 # Installation Instructions
 
-`httpx` requires **go >=1.24.0** to install successfully. Run the following command to get the repo:
+`httpxc` requires **go >=1.24.0** to install successfully. Run the following command to get the repo:
 
 ```sh
-go install -v github.com/projectdiscovery/httpx/cmd/httpx@latest
+GOPROXY=direct go install -v github.com/pelamx/httpxCustom/cmd/httpxc@dev
+```
+# Alternative Installation (if above doesn't work):
+```
+git clone https://github.com/pelamx/httpxCustom
+cd httpxCustom/cmd/httpxc
+go build
+sudo mv httpxc /usr/local/bin/
 ```
 
-To learn more about installing httpx, see https://docs.projectdiscovery.io/tools/httpx/install.
+For original tool, see https://docs.projectdiscovery.io/tools/httpx/install.
 
 | :exclamation:  **Disclaimer**  |
 |---------------------------------|
@@ -78,17 +33,16 @@ To learn more about installing httpx, see https://docs.projectdiscovery.io/tools
 # Usage
 
 ```sh
-httpx -h
+httpxc -h
 ```
 
-This will display help for the tool. Here are all the switches it supports.
+Everything same except the new flag. 
 
 
 ```console
-httpx is a fast and multi-purpose HTTP toolkit that allows running multiple probes using the retryablehttp library.
 
 Usage:
-  ./httpx [flags]
+  ./httpxc [flags]
 
 Flags:
 INPUT:
@@ -120,6 +74,7 @@ PROBES:
    -asn                   display host asn information
    -cdn                   display cdn/waf in use (default true)
    -probe                 display probe status
+   -ep                    added new flag -ep (endpoint) which can add sub.domain.tld requested endpoint for direct endpoint targeting.
 
 HEADLESS:
    -ss, -screenshot                 enable saving screenshot of the page using headless browser
@@ -146,7 +101,7 @@ MATCHERS:
 
 EXTRACTOR:
    -er, -extract-regex string[]   display response content with matched regex
-   -ep, -extract-preset string[]  display response content matched by a pre-defined regex (url,ipv4,mail)
+   -epr, -extract-preset string[]  display response content matched by a pre-defined regex (url,ipv4,mail) #changed from -ep to -epr for new endpoint feaiture
 
 FILTERS:
    -fc, -filter-code string            filter response with specified status code (-fc 403,401)
@@ -267,44 +222,3 @@ CLOUD:
    -pdu, -dashboard-upload string  upload httpx output file (jsonl) in projectdiscovery cloud (pdcp) UI dashboard
 ```
 
-# Running httpx
-
-For details about running httpx, see https://docs.projectdiscovery.io/tools/httpx/running.
-
-### Using `httpx` as a library
-`httpx` can be used as a library by creating an instance of the `Option` struct and populating it with the same options that would be specified via CLI. Once validated, the struct should be passed to a runner instance (to be closed at the end of the program) and the `RunEnumeration` method should be called. A minimal example of how to do it is in the [examples](examples/) folder
-
-# Notes
-
-- As default, `httpx` probe with **HTTPS** scheme and fall-back to **HTTP** only if **HTTPS** is not reachable.
-- The `-no-fallback` flag can be used to probe and display both **HTTP** and **HTTPS** result.
-- Custom scheme for ports can be defined, for example `-ports http:443,http:80,https:8443`
-- Custom resolver supports multiple protocol (**doh|tcp|udp**) in form of `protocol:resolver:port` (e.g. `udp:127.0.0.1:53`)
-- The following flags should be used for specific use cases instead of running them as default with other probes:
-   - `-ports`
-   - `-path`
-   - `-vhost`
-   - `-screenshot`
-   - `-csp-probe`
-   - `-tls-probe`
-   - `-favicon`
-   - `-http2`
-   - `-pipeline`
-   - `-tls-impersonate`
-
-
-# Acknowledgement
-
-Probing feature is inspired by [@tomnomnom/httprobe](https://github.com/tomnomnom/httprobe) work ❤️
-
-
---------
-
-<div align="center">
-
-`httpx` is made with 💙 by the [projectdiscovery](https://projectdiscovery.io) team and distributed under [MIT License](LICENSE.md).
-
-
-<a href="https://discord.gg/projectdiscovery"><img src="https://raw.githubusercontent.com/projectdiscovery/nuclei-burp-plugin/main/static/join-discord.png" width="300" alt="Join Discord"></a>
-
-</div>
